@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-harang-dev-205232-authRole",
+      "UnauthRoleArn": "arn:aws:iam::449975738090:role/amplify-harang-dev-205232-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::449975738090:role/amplify-harang-dev-205232-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-harang-dev-205232-deployment",
+      "UnauthRoleName": "amplify-harang-dev-205232-unauthRole",
+      "StackName": "amplify-harang-dev-205232",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:449975738090:stack/amplify-harang-dev-205232/b9a47ce0-2f40-11ec-8fd6-0625f6230152",
+      "AmplifyAppId": "d2nlaojmed39am"
+    },
+    "categories": {
+      "auth": {
+        "harang82179a54": {}
+      }
+    }
+  }
+}
