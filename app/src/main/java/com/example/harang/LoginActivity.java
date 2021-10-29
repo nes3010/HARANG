@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
-            // Display error messages ;)
+            // 오류메세지 띄우기
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {
@@ -78,8 +78,40 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     private void _signIn(String userName, String password) {
         // Add code here
+        AWSMobileClient.getInstance().signIn(userName, password, null, new Callback<SignInResult>() {
+            @Override
+            public void onResult(final SignInResult signInResult) {
+                runOnUiThread(() -> {
+                    Log.d(TAG, "Sign-in callback state: " + signInResult.getSignInState());
+                    switch (signInResult.getSignInState()) {
+                        case DONE:
+                            makeToast(context,"Sign-in done.");
+                            CommonAction.openMap(context);
+                            break;
+                        case SMS_MFA:
+                            makeToast(context, "Please confirm sign-in with SMS.");
+                            break;
+                        case NEW_PASSWORD_REQUIRED:
+                            makeToast(context, "Please confirm sign-in with new password.");
+                            break;
+                        default:
+                            makeToast(context, "Unsupported sign-in confirmation: " + signInResult.getSignInState());
+                            break;
+                    }
+                });
+            }
 
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "Sign-in error", e);
+                runOnUiThread(() -> {
+                    if (e instanceof AmazonServiceException)
+                        makeToast(context, ((AmazonServiceException) e).getErrorMessage());
+                });
+            }
+        });
     }
+
 
     public void doLogin(View view) {
         validator.validate();

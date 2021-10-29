@@ -9,6 +9,10 @@ import com.amazonaws.mobile.client.UserStateDetails;
 import com.amazonaws.mobile.client.UserStateListener;
 
 public class CommonAction {
+
+    public static void openMap(Context context){
+        CommonAction.openActivityOnTop(context, MapActivity.class);
+    }
     public static void openMain(Context context){
         CommonAction.openActivityOnTop(context, MainActivity.class);
     }
@@ -36,7 +40,7 @@ public class CommonAction {
                     case SIGNED_IN:
                         Log.i("checkSession", "user signed in");
                         if (moveToMain)
-                            CommonAction.openMain(context);
+                            CommonAction.openMap(context);
                         break;
                     default:
                         Log.i("checkSession", "unsupported");

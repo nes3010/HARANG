@@ -32,7 +32,7 @@ public class AuthMainActivity extends AppCompatActivity {
     }
 
     private void _openFacebookLogin() {
-        // Add code here
+        //페이스북 로그인
         HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
                 .scopes("openid", "email")
                 .identityProvider("Facebook")
@@ -58,7 +58,7 @@ public class AuthMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Add code here
+        //앱 메인으로 이동한다
         Intent activityIntent = getIntent();
         if (activityIntent.getData() != null &&
                 "socialdemoapp".equals(activityIntent.getData().getScheme())) {

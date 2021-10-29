@@ -3,13 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28802083333333334" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/drawable/border.xml" value="0.28802083333333334" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/drawable/ic_launcher_background.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_auth_main.xml" value="0.25" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_dummy.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_login.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_map.xml" value="0.22" />
         <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_sign_up.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_splash.xml" value="0.2" />
-        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragment_sign_up.xml" value="0.2006340579710145" />
-        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragment_sign_up_confirm.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/activity_testver.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/authentication_layout.xml" value="0.271875" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/content_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragmen1.xml" value="0.22" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragmen2.xml" value="0.1480978260869565" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/fragment_sign_up_confirm.xml" value="0.33" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/mapping.xml" value="0.275" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/post_item.xml" value="0.271875" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/setting.xml" value="0.271875" />
+        <entry key="..\:/Users/nes30/AndroidStudioProjects/HARANG/app/src/main/res/layout/write.xml" value="0.271875" />
       </map>
     </option>
   </component>

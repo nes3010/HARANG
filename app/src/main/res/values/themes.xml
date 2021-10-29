@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HARANG" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#B1D182</item>
+        <item name="colorPrimaryVariant">#B1D182</item>
+        <item name="colorOnPrimary">#B1D182</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#688F4E</item>
+        <item name="colorSecondaryVariant">#688F4E</item>
+        <item name="colorOnSecondary">#688F4E</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.HARANG.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.HARANG.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.HARANG.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
