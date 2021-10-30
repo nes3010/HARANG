@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                     switch (userStateDetails.getUserState()){
                         case SIGNED_IN:
                             // Open Main Activity
-                            CommonAction.openMap(context);
+                            CommonAction.openMain(context);
                             break;
                         case SIGNED_OUT:
                             Log.d(TAG, "Do nothing yet");
@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
 
         } else if (AWSMobileClient.getInstance().isSignedIn()){
             // Logined user
-            CommonAction.openMap(context);
+            CommonAction.openMain(context);
         } else {
             // Logouted user
             CommonAction.openAuthMain(context);

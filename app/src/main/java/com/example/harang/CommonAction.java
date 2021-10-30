@@ -40,7 +40,7 @@ public class CommonAction {
                     case SIGNED_IN:
                         Log.i("checkSession", "user signed in");
                         if (moveToMain)
-                            CommonAction.openMap(context);
+                            CommonAction.openMain(context);
                         break;
                     default:
                         Log.i("checkSession", "unsupported");

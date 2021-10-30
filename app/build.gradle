@@ -62,7 +62,7 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-cognitoauth:2.26.0'
     //위치GPS:Google play services 라이브러리
     implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
 
 }
 
