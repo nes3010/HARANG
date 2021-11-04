@@ -1,61 +1,55 @@
 package com.example.harang;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-
-import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.gms.common.ConnectionResult;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap mGoogleMap = null;
     private Marker currentMarker = null;
 
+    private static final int MY_PERMISSION_CAMERA = 1111;
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2002;
@@ -85,10 +80,16 @@ public class MainActivity extends AppCompatActivity
     boolean mMoveMapByAPI = true;
     LatLng currentPosition;
 
+    //마커 표시를 위한 데이터 셋팅
+    Marker selectedMarker; View marker_root_view; TextView tv_marker;
+
+
     LocationRequest locationRequest = new LocationRequest()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
             .setInterval(UPDATE_INTERVAL_MS)
             .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
+
+
 
 
     @Override
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
+
+        CommonAction.checkSession(this, false);
 
 
         Log.d(TAG, "onCreate");
@@ -115,6 +118,9 @@ public class MainActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+
+
 
 
     @Override
@@ -189,6 +195,10 @@ public class MainActivity extends AppCompatActivity
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
         setDefaultLocation();
+        //냉장고 위치 추가하기 위해 함수 호출
+        setCustomMarkerView();
+        getSampleMarkerItems();
+
 
         //mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -238,6 +248,77 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+
+    private void getSampleMarkerItems() {
+        ArrayList<MarkerItem> sampleList = new ArrayList();
+
+
+        sampleList.add(new MarkerItem(37.25595059713654, 127.02475748064155));
+        sampleList.add(new MarkerItem(37.265256948959575, 127.04551785598875));
+        sampleList.add(new MarkerItem(37.2923546860222, 127.03419548374417));
+        sampleList.add(new MarkerItem(37.26795388945901, 126.99118911366986));
+
+
+        for (MarkerItem markerItem : sampleList) {
+            addMarker(markerItem, false);
+        }
+
+    }
+    private void setCustomMarkerView() {
+
+        marker_root_view = LayoutInflater.from(this).inflate(R.layout.mapping, null);
+        tv_marker = (TextView) marker_root_view.findViewById(R.id.tv_marker);
+    }
+
+
+
+
+    private Marker addMarker(MarkerItem markerItem, boolean isSelectedMarker) {
+
+
+        LatLng position = new LatLng(markerItem.getLat(), markerItem.getLon());
+
+        if (isSelectedMarker) {
+            tv_marker.setBackgroundResource(R.drawable.ic_baseline_store_mall_directory_24);
+            tv_marker.setTextColor(Color.WHITE);
+        } else {
+            tv_marker.setBackgroundResource(R.drawable.ic_baseline_store_mall_directory_24);
+            tv_marker.setTextColor(Color.BLACK);
+        }
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(position);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
+
+
+        return mGoogleMap.addMarker(markerOptions);
+
+    }
+
+    // View를 Bitmap으로 변환
+    private Bitmap createDrawableFromView(Context context, View view) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
+
+    private Marker addMarker(Marker marker, boolean isSelectedMarker) {
+        double lat = marker.getPosition().latitude;
+        double lon = marker.getPosition().longitude;
+        MarkerItem temp = new MarkerItem(lat, lon);
+        return addMarker(temp, isSelectedMarker); }
+
 
 
     @Override

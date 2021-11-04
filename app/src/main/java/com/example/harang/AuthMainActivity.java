@@ -42,7 +42,7 @@ public class AuthMainActivity extends AppCompatActivity {
                 .hostedUIOptions(hostedUIOptions)
                 .build();
 
-        AWSMobileClient.getInstance().showSignIn((Activity) context, signInUIOptions, new Callback<UserStateDetails>() {
+        AWSMobileClient.getInstance().showSignIn(this, signInUIOptions, new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails details) {
                 Log.d(TAG, "onResult: " + details.getUserState());
@@ -79,6 +79,7 @@ public class AuthMainActivity extends AppCompatActivity {
     }
 
     public void openFacebookLogin(View view) {
+
         _openFacebookLogin();
     }
 
